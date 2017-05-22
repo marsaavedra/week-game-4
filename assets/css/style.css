@@ -1,0 +1,25 @@
+body {
+    font-family: "Lora", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	background: url("../images/back.png");
+	background-repeat: no-repeat;
+	background-position: center center;
+	background-attachment: fixed;
+	background-size: cover; 
+}
+
+.panel-heading {
+    background-color: black;
+}
+
+.navbar-header {
+    background-color: black;
+}
+
+.container-fluid{
+    background-color: black;
+}
+
+.pic {
+    width: 300px;
+    height: auto;
+}
