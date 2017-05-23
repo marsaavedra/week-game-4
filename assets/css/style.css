@@ -20,7 +20,14 @@ body {
 }
 
 .pic {
+    margin-left: 30px;
     width: 200px;
     height: auto;
     float: left;
+}
+
+h2 {
+    color: #01ffdd;
+    font-style: sans-serif;
+    text-align: center;
 }
