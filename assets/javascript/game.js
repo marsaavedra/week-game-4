@@ -26,6 +26,7 @@
     //here we are calling the game function so the game can actually run
     game();
 
+    //Ive created this variable to switch the fucntionality of the on click function 
     var jediHasBeenSelected = false;
 
     
@@ -34,39 +35,39 @@
         
             $(".pic").on("click", function() {
                 if(jediHasBeenSelected ===false) {
-                if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
-                    //then make myJedi rey
-                    myJedi= rey;//both of these variables were defined globally
-                } else if ($(this).attr("id")==="aayla"){
-                    myJedi = aayla;
-                } else if ($(this).attr("id")==="padme") {
-                    myJedi = padme;
-                } else {
-                   myJedi = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
+                    if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
+                        //then make myJedi rey
+                        myJedi= rey;//both of these variables were defined globally
+                    } else if ($(this).attr("id")==="aayla"){
+                        myJedi = aayla;
+                    } else if ($(this).attr("id")==="padme") {
+                        myJedi = padme;
+                    } else {
+                       myJedi = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
+                    }
+                    //run this loop to go through the jedis (plural) array so we can grab all of them
+                    for (var i = 0; i < jedis.length; i++) {
+                        //move all jedis to the enemies section in HTML
+                        $("#enemies").append($(jedis[i].name)).removeClass(".pic").addClass(".enemy");//to do this, the name of my Jedis must match the name of the section where they are in html (and also successfully grap the emelent in JS)..that's why the names have '#'                        
+                    } 
+                    //move the character that you picked back to the your character section in HTML
+                    $("#yourCharacter").append($(myJedi.name));//why move it back? because its easier, and less steps to move all of them first and then move my herione back then move all of the other three individaully
+                    jediHasBeenSelected = true;//now the jedi has been selected and now we can go on to switch the on click functionality
                 }
-                //run this loop to go through the jedis (plural) array so we can grab all of them
-                for (var i = 0; i < jedis.length; i++) {
-                    //move all jedis to the enemies section in HTML
-                    $("#enemies").append($(jedis[i].name)).removeClass(".pic").addClass(".enemy");//to do this, the name of my Jedis must match the name of the section where they are in html (and also successfully grap the emelent in JS)..that's why the names have '#'                        
-                } 
-                //move the character that you picked back to the your character section in HTML
-                $("#yourCharacter").append($(myJedi.name));//why move it back? because its easier, and less steps to move all of them first and then move my herione back then move all of the other three individaully
-                jediHasBeenSelected = true;
-              }
 
-              else if (jediHasBeenSelected ===true) {
-                if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
-                    //then make myJedi rey
-                    myDefender= rey;//both of these variables were defined globally
-                } else if ($(this).attr("id")==="aayla"){
-                    myDefender = aayla;
-                } else if ($(this).attr("id")==="padme") {
-                    myDefender = padme;
-                } else {
-                   myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
-                }
-                $("#defender").append($(myDefender.name));
-              }  
+                else if (jediHasBeenSelected) { //dont have to set it equal to true because ive already defined the false in the global
+                    if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
+                        //then make myJedi rey
+                        myDefender= rey;//both of these variables were defined globally
+                    } else if ($(this).attr("id")==="aayla"){
+                        myDefender = aayla;
+                    } else if ($(this).attr("id")==="padme") {
+                        myDefender = padme;
+                    } else {
+                       myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
+                    }
+                    $("#defender").append($(myDefender.name));//place my clicked on defender inside of the defende div
+                }  
             })
 
         
