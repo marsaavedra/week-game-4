@@ -26,11 +26,14 @@
     //here we are calling the game function so the game can actually run
     game();
 
+    var jediHasBeenSelected = false;
+
     
     function game() {
         //this is how we pick your jedi with the on click event
         
             $(".pic").on("click", function() {
+                if(jediHasBeenSelected ===false) {
                 if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
                     //then make myJedi rey
                     myJedi= rey;//both of these variables were defined globally
@@ -48,14 +51,11 @@
                 } 
                 //move the character that you picked back to the your character section in HTML
                 $("#yourCharacter").append($(myJedi.name));//why move it back? because its easier, and less steps to move all of them first and then move my herione back then move all of the other three individaully
-                
-            })
-        
-        
-        //end of on click function to select your character
-        //now its the second click event to choose defender
-        $(".enemy").on("click", function () {
-            if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
+                jediHasBeenSelected = true;
+              }
+
+              else if (jediHasBeenSelected ===true) {
+                if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
                     //then make myJedi rey
                     myDefender= rey;//both of these variables were defined globally
                 } else if ($(this).attr("id")==="aayla"){
@@ -66,7 +66,10 @@
                    myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
                 }
                 $("#defender").append($(myDefender.name));
-        })
+              }  
+            })
+
+        
     };
 
 
