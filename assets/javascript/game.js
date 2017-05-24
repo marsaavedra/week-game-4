@@ -12,8 +12,8 @@
     //all of the properties here are defined specifically to each character in our game
     var aayla = new heroine(200, 25, 5, "#aayla"); //using the hashtag so that it matches the id in the html that we will need to call with jquery so we can move it to a specific section in the game
     var padme = new heroine(150, 20, 8, "#padme");
-    var rey = new heroine(200, 25, 5, "#rey");
-    var kylo = new heroine(200, 25, 5, "#kylo");
+    var rey = new heroine(100, 15, 10, "#rey");
+    var kylo = new heroine(90, 12, 11, "#kylo");
     //myJedi variable will be called inside of the game () function, when the user picks a specific character's picture
     //for ex: when clicked on rey's pic the myJedi variable is assigned the rey variable that we also defined globally
     //along with all of her new heroine stats and places inside of the if statement, if clicked on her pic
@@ -24,7 +24,6 @@
     //this array was created to be able to move the characters to the enemies section when the user picks a heroine
     var jedis = [aayla, padme, rey, kylo];
 
-    var enemies = [];
     //here we are calling the game function so the game can actually run
     game();
 
@@ -33,12 +32,20 @@
 
     var defenderHasBeenSelected = false;
 
+    var myDefenderIsDefeated = false;
+
+    var myJediHasWon = false;
+
+    var myJediArray = [];
+
+    var myDefenderArray = [];
+
     
     function game() {
         //this is how we pick your jedi with the on click event
         
             $(".pic").on("click", function() {
-                if((jediHasBeenSelected ===false) && (defenderHasBeenSelected ===false) ) {
+                if(!jediHasBeenSelected) {
                     if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
                         //then make myJedi rey
                         myJedi= rey;//both of these variables were defined globally
@@ -58,11 +65,12 @@
                     //move the character that you picked back to the your character section in HTML
                     $("#yourCharacter").append($(myJedi.name));//why move it back? because its easier, and less steps to move all of them first and then move my herione back then move all of the other three individaully
                      
-                    $(myJedi.name).unbind("click");
+                    $(myJedi.name).unbind("click"); 
 
                     jediHasBeenSelected = true;//now the jedi has been selected and now we can go on to switch the on click functionality
                     $("#yourFight").append(myJedi.health);
-                    
+                    //here im pusing myJedi into the myJediArray so I can access it later to fight the defender
+                    console.log("myJedi:", myJedi);
                 }
 
                 else if (jediHasBeenSelected) { //dont have to set it equal to true because ive already defined the false in the global
@@ -81,12 +89,28 @@
                     defenderHasBeenSelected = true;
                     $("#yourOpponent").append(myDefender.health);
                     }
-                } 
+                    //here im pushin myDefender in the myDefender Array so I can access it later to make myDefender and myJedi fight
+                    
+                    console.log("myDefender:", myDefender);
+                    console.log(myDefender.health);
+                    
+                }//end of else if   
+
+            })//end on of onclick function of picking your player and initial opponent
+    
+                //now its time to fight
+            $(".btn").on("click", function () {
+                        
+                myDefender.health -= myJedi.attack; 
+                console.log(myDefender.health);
+                // console.log(myDefenderArray.heroine);
+                // myJedi.attack += myJedi.attack;
+                // myJedi.health -= myDefender.counterAttack;
+                        
+            })
                 
 
-            })
-
         
-    };
+    };//end of game
 
 
