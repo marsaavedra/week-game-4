@@ -74,9 +74,10 @@
                     } else {
                        myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
                     }
-                    $("#defender").append($(myDefender.name));//place my clicked on defender inside of the defende div
+                    if(!defenderHasBeenSelected) {
+                    $("#defender").append($(myDefender.name));
                     defenderHasBeenSelected = true;
-
+                    }
                 } 
                 
 
