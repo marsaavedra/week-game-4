@@ -57,10 +57,12 @@
                     } 
                     //move the character that you picked back to the your character section in HTML
                     $("#yourCharacter").append($(myJedi.name));//why move it back? because its easier, and less steps to move all of them first and then move my herione back then move all of the other three individaully
-                        
+                     
                     $(myJedi.name).unbind("click");
 
                     jediHasBeenSelected = true;//now the jedi has been selected and now we can go on to switch the on click functionality
+                    $("#yourFight").append(myJedi.health);
+                    
                 }
 
                 else if (jediHasBeenSelected) { //dont have to set it equal to true because ive already defined the false in the global
@@ -77,6 +79,7 @@
                     if(!defenderHasBeenSelected) {
                     $("#defender").append($(myDefender.name));
                     defenderHasBeenSelected = true;
+                    $("#yourOpponent").append(myDefender.health);
                     }
                 } 
                 
