@@ -6,21 +6,26 @@
         this.health = myHealth; //we are defining the myHealth and putting it back in the brackets because this property will change with each character
         this.attack = myAttack;
         this.counterAttack = myCounterAttack;
-        this.name = myName; 
+        this.name = myName;
+        this.newAttack = 0; 
         
     }
     //all of the properties here are defined specifically to each character in our game
-    var aayla = new heroine(200, 25, 5, "#aayla"); //using the hashtag so that it matches the id in the html that we will need to call with jquery so we can move it to a specific section in the game
-    var padme = new heroine(150, 20, 8, "#padme");
-    var rey = new heroine(100, 15, 10, "#rey");
-    var kylo = new heroine(90, 12, 11, "#kylo");
+    var aayla = new heroine(100, 10, 10, "#aayla"); //using the hashtag so that it matches the id in the html that we will need to call with jquery so we can move it to a specific section in the game
+    var padme = new heroine(180, 18, 18, "#padme");
+    var rey = new heroine(140, 14, 14, "#rey");
+    var kylo = new heroine(160, 16, 16, "#kylo");
     //myJedi variable will be called inside of the game () function, when the user picks a specific character's picture
     //for ex: when clicked on rey's pic the myJedi variable is assigned the rey variable that we also defined globally
     //along with all of her new heroine stats and places inside of the if statement, if clicked on her pic
-    //also we can also use this spell: myJedi.myAttack, to make things way clearer, less complicated and with less code  
+    //also we can also use this spell: myJedi.attack, to make things way clearer, less complicated and with less code  
     var myJedi;
 
     var myDefender;
+
+    var numberOfAttacks = 0;
+
+    var enemiesRemaining = 3;    
     //this array was created to be able to move the characters to the enemies section when the user picks a heroine
     var jedis = [aayla, padme, rey, kylo];
 
@@ -32,13 +37,10 @@
 
     var defenderHasBeenSelected = false;
 
-    var myDefenderIsDefeated = false;
+    var myDefenderWon = false;
 
-    var myJediHasWon = false;
+    var myJediWon = false;
 
-    var myJediArray = [];
-
-    var myDefenderArray = [];
 
     
     function game() {
@@ -85,9 +87,10 @@
                        myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
                     }
                     if(!defenderHasBeenSelected) {
-                    $("#defender").append($(myDefender.name));
-                    defenderHasBeenSelected = true;
-                    $("#yourOpponent").append(myDefender.health);
+                        $("#defender").empty();
+                        $("#defender").append($(myDefender.name));
+                        defenderHasBeenSelected = true;
+                        $("#yourOpponent").text(myDefender.health);
                     }
                     //here im pushin myDefender in the myDefender Array so I can access it later to make myDefender and myJedi fight
                     
@@ -100,13 +103,57 @@
     
                 //now its time to fight
             $(".btn").on("click", function () {
-                        
-                myDefender.health -= myJedi.attack; 
-                console.log(myDefender.health);
-                // console.log(myDefenderArray.heroine);
-                // myJedi.attack += myJedi.attack;
-                // myJedi.health -= myDefender.counterAttack;
-                        
+
+
+
+                if(defenderHasBeenSelected) {
+
+                    numberOfAttacks++;
+
+                    myJedi.newAttack = (numberOfAttacks * myJedi.attack);
+                    
+                    myJedi.health -= myDefender.counterAttack 
+                    $("#yourFight").text(myJedi.health);
+                    console.log("myJedi.health", myJedi.health);
+                    
+                    myDefender.health -= myJedi.newAttack; 
+                    $("#yourOpponent").text(myDefender.health);
+                    console.log("myDefender.health:", myDefender.health);
+
+                    
+                    console.log("myJedi.attack", myJedi.newAttack);
+                    console.log("numberOfAttacks", numberOfAttacks);
+                    console.log("numberOfAttacks * myJedi.attack", numberOfAttacks * myJedi.attack); 
+
+                    if (myJedi.health <1) {
+                        //make myJedi dissapear
+                        $(myJedi.name).remove();
+                        //display the lose message
+                        $("#yourCharacter").text("You have lost the game! Restart the page to play again!");
+                        $(".btn").off("click");
+
+                    }   else if(myDefender.health < 1) {
+                            //make myDefender dissappear
+                            $(myDefender.name).remove();
+                            //New message 
+                            $("#defender").text("Pick another Defender from the Enemies' List")
+                            //enable onClick function for the enemies 
+                            defenderHasBeenSelected = false;
+
+                            enemiesRemaining--;
+
+                    }
+
+                    if (enemiesRemaining < 1) {
+                        //myJedi has won the game
+                        //display this win message 
+                        $("#yourCharacter").text("You have won the game! Restart the page to play again!");
+                        //remove message: "pick another enemy from the defender section"
+                        $("#defender").empty();
+                    }
+
+                }
+                     
             })
                 
 
