@@ -31,6 +31,11 @@
 
     var dual = new Audio();
     dual.src = "assets/sound/dual.wav";
+
+    var coolsaber = new Audio();
+    coolsaber.src = "assets/sound/coolsaber.wav";
+
+
     //since we know how many enemies we will have in this case: 3 (or if in the future we have 1000 characters we can always subract the number of characters by 1)
     //we will use this variable to perform a specific action once it turns 0
     var enemiesRemaining = 3;    
@@ -66,6 +71,7 @@
                     } else {
                        myJedi = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
                     }
+                    lightsaber.play();
                     //run this loop to go through the jedis (plural) array so we can grab all of them
                     for (var i = 0; i < jedis.length; i++) {
                         //move all jedis to the enemies section in HTML
@@ -94,11 +100,13 @@
                     } else {
                        myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
                     }
+
                     if(!defenderHasBeenSelected) { //I have used this statement to only allow 1 pick for a defender and disable the on click functions for the other enemies
                         $("#defender").empty();//this is to clear out the text inside of the defender div
                         $("#defender").append($(myDefender.name));//
                         defenderHasBeenSelected = true;
                         $("#yourOpponent").text(myDefender.health);
+                        lightsaber.play();
                     }
                     
                     
@@ -128,6 +136,7 @@
                     $("#yourOpponent").text(myDefender.health);
                     console.log("myDefender.health:", myDefender.health);
 
+                    dual.play();
                     
                     console.log("myJedi.attack", myJedi.newAttack);
                     console.log("numberOfAttacks", numberOfAttacks);
@@ -145,6 +154,7 @@
                             $(myDefender.name).remove();
                             //New message 
                             $("#defender").text("Pick another Defender from the Enemies' List")
+                            coolsaber.play();
                             //enable onClick function for the enemies 
                             defenderHasBeenSelected = false;
                             //here we decrease the amount of enemies available..so that when it reaches zero in the if-statement below, myJedi wins the game
@@ -156,6 +166,7 @@
                         //myJedi has won the game
                         //display this win message 
                         $("#yourCharacter").text("You have won the game! Restart the page to play again!");
+                        coolsaber.play();
                         //remove message: "pick another enemy from the defender section"
                         $("#defender").empty(); 
                     }
