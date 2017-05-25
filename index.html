@@ -30,13 +30,12 @@
                 <h2>Selection</h2>
             </div>
                 
-
-
             <div class="panel-body" id="selection">
-                <img src="assets/images/rey.jpg" class ="pic img-responsive img-circle " id="rey"> 
-                <img src="assets/images/padme.jpg" class ="pic img-responsive img-circle " id="padme">
-                <img src="assets/images/aayla.jpg" class ="pic img-responsive img-circle " id="aayla">
-                <img src="assets/images/kylo.jpg" class ="pic img-responsive img-circle " id="kylo">
+            
+                <img src="assets/images/rey.jpg" onmousedown="lightsaber.play()" class ="pic img-responsive img-circle " id="rey"> 
+                <img src="assets/images/padme.jpg" onmousedown="lightsaber.play()" class ="pic img-responsive img-circle " id="padme">
+                <img src="assets/images/aayla.jpg" onmousedown="lightsaber.play()" class ="pic img-responsive img-circle " id="aayla">
+                <img src="assets/images/kylo.jpg" onmousedown="lightsaber.play()" class ="pic img-responsive img-circle " id="kylo">
             </div>
         
 
@@ -67,7 +66,7 @@
                 <section> Your Character: <br> Health Points <span id="yourFight"> </span></section>
                 
                 <div class="text-center">
-                <button class="btn" type="submit">Fight</button>
+                <button class="btn" onmousedown="dual.play()" type="submit">Strike</button>
                 </div>
 
                 <section> Defender: <br> Health Points <span id="yourOpponent"> </span></section>

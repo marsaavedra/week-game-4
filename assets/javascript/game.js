@@ -1,21 +1,21 @@
 //javascript
 
 
-    //here is the general stats that are chosen heroine will have (kylo can also be a heroine)
+    //here is the general stats that are chosen heroine will have (kylo is also heroine)
     function heroine(myHealth, myAttack, myCounterAttack, myName){
-        this.health = myHealth; //we are defining the myHealth and putting it back in the brackets because this property will change with each character
+        this.health = myHealth; //we are defining the myHealth and putting it back in the paranthesis because this property will change with each character
         this.attack = myAttack;
         this.counterAttack = myCounterAttack;
         this.name = myName;
         this.newAttack = 0; 
         
     }
-    //all of the properties here are defined specifically to each character in our game
-    var aayla = new heroine(100, 10, 10, "#aayla"); //using the hashtag so that it matches the id in the html that we will need to call with jquery so we can move it to a specific section in the game
+    //all of the properties here are defined specifically to each heroine in our game
+    var aayla = new heroine(100, 10, 10, "#aayla"); //using the hashtag so that it matches the id in the html that we will need to call with jquery so we can move the character to a specific section in the game
     var padme = new heroine(180, 18, 18, "#padme");
     var rey = new heroine(140, 14, 14, "#rey");
     var kylo = new heroine(160, 16, 16, "#kylo");
-    //myJedi variable will be called inside of the game () function, when the user picks a specific character's picture
+    //myJedi (below) variable will be called inside of the game () function, when the user picks a specific character's picture
     //for ex: when clicked on rey's pic the myJedi variable is assigned the rey variable that we also defined globally
     //along with all of her new heroine stats and places inside of the if statement, if clicked on her pic
     //also we can also use this spell: myJedi.attack, to make things way clearer, less complicated and with less code  
@@ -25,6 +25,14 @@
 
     var numberOfAttacks = 0;
 
+    //sound effects
+    var lightsaber = new Audio();
+    lightsaber.src = "assets/sound/lightsaber.wav";
+
+    var dual = new Audio();
+    dual.src = "assets/sound/dual.wav";
+    //since we know how many enemies we will have in this case: 3 (or if in the future we have 1000 characters we can always subract the number of characters by 1)
+    //we will use this variable to perform a specific action once it turns 0
     var enemiesRemaining = 3;    
     //this array was created to be able to move the characters to the enemies section when the user picks a heroine
     var jedis = [aayla, padme, rey, kylo];
@@ -32,7 +40,7 @@
     //here we are calling the game function so the game can actually run
     game();
 
-    //Ive created this variable to switch the fucntionality of the on click function 
+    //Ive created these variables to switch fucntionality of an on click function 
     var jediHasBeenSelected = false;
 
     var defenderHasBeenSelected = false;
@@ -49,7 +57,7 @@
             $(".pic").on("click", function() {
                 if(!jediHasBeenSelected) {
                     if($(this).attr("id")==="rey"){ //if this (.pic) has an attribute (in this case the id) that is set to "rey"..
-                        //then make myJedi rey
+                        //then make myJedi: rey
                         myJedi= rey;//both of these variables were defined globally
                     } else if ($(this).attr("id")==="aayla"){
                         myJedi = aayla;
@@ -86,13 +94,13 @@
                     } else {
                        myDefender = kylo; //we don't have to say ($(this).attr("id")==="kylo") becuase he is the last one left
                     }
-                    if(!defenderHasBeenSelected) {
-                        $("#defender").empty();
-                        $("#defender").append($(myDefender.name));
+                    if(!defenderHasBeenSelected) { //I have used this statement to only allow 1 pick for a defender and disable the on click functions for the other enemies
+                        $("#defender").empty();//this is to clear out the text inside of the defender div
+                        $("#defender").append($(myDefender.name));//
                         defenderHasBeenSelected = true;
                         $("#yourOpponent").text(myDefender.health);
                     }
-                    //here im pushin myDefender in the myDefender Array so I can access it later to make myDefender and myJedi fight
+                    
                     
                     console.log("myDefender:", myDefender);
                     console.log(myDefender.health);
@@ -108,7 +116,7 @@
 
                 if(defenderHasBeenSelected) {
 
-                    numberOfAttacks++;
+                    numberOfAttacks++; //this is used in the line below to increase the base attack power of myJedi
 
                     myJedi.newAttack = (numberOfAttacks * myJedi.attack);
                     
@@ -139,7 +147,7 @@
                             $("#defender").text("Pick another Defender from the Enemies' List")
                             //enable onClick function for the enemies 
                             defenderHasBeenSelected = false;
-
+                            //here we decrease the amount of enemies available..so that when it reaches zero in the if-statement below, myJedi wins the game
                             enemiesRemaining--;
 
                     }
@@ -149,7 +157,7 @@
                         //display this win message 
                         $("#yourCharacter").text("You have won the game! Restart the page to play again!");
                         //remove message: "pick another enemy from the defender section"
-                        $("#defender").empty();
+                        $("#defender").empty(); 
                     }
 
                 }
